@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace DtoTransfer;
-
+//TODO: deal with allocations
 internal class Program
 {
    static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\DtoTransfer\TestDtoOutput";
@@ -56,7 +56,9 @@ internal class Program
 
     static bool TypePrefix(string filePath, string dtoName)
     {
-        //export Interface name {
+        //export Interface dtoName {
+        var pfx = $"export Interface {dtoName}  "+"{"+ Environment.NewLine;
+        File.WriteAllText(filePath, pfx);
 
         return true;
     }
@@ -64,18 +66,20 @@ internal class Program
     static bool TypeSuffix(string filePath, string dtoName)
     {
         // }
+        const string  sfx = "}";
+        File.AppendAllText(filePath, sfx);
         return true;
     }
 
-    static void FileWriter(string propName, string propType, string typeFile)
+     static void FileWriter(string propName, string propType, string typeFile)
     {
-        if (File.Exists(typeFile))
-        {
-            
-        }
-    
+        if (!File.Exists(typeFile)) return;
+        // id : number
+        var line = $"{propName} : {TypeConverter(propType)}";
+        File.AppendAllText(typeFile, line);
+
         //
-        
+
     }
 
     static string TypeConverter(string propType) => propType switch

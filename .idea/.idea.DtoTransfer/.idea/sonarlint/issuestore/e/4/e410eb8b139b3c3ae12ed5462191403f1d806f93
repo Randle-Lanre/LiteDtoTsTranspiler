@@ -1,18 +1,12 @@
 
 xcsharpsquid:S1118"OAdd a 'protected' constructor or the 'static' keyword to the class declaration.(İ­›Äÿÿÿÿÿ8ÈÈßüÅ1
-Qcsharpsquid:S108I")Either remove or fill this block of code.(ÒÌâ–øÿÿÿÿ8·ò½ıÅ1
-Scsharpsquid:S11729"/Remove this unused method parameter 'filePath'.(©»Šü8®³ıÅ1
-Rcsharpsquid:S11729".Remove this unused method parameter 'dtoName'.(©»Šü8®³ıÅ1
-Scsharpsquid:S1172@"/Remove this unused method parameter 'filePath'.(±ÉøÔ8¼ıÅ1
-Rcsharpsquid:S1172@".Remove this unused method parameter 'dtoName'.(±ÉøÔ8¼ıÅ1
-Scsharpsquid:S1172F"/Remove this unused method parameter 'propName'.(ê¿•8·ò½ıÅ1
-Scsharpsquid:S1172F"/Remove this unused method parameter 'propType'.(ê¿•8·ò½ıÅ1
+Rcsharpsquid:S1172B".Remove this unused method parameter 'dtoName'.(±ÉøÔ8ÄÏÒÿÅ1
 Rcsharpsquid:S11449".Remove the unused private method 'TypePrefix'.(©»Šü8»å¯ıÅ1
-Rcsharpsquid:S1144@".Remove the unused private method 'TypeSuffix'.(±ÉøÔ8¸é»ıÅ1
-Ucsharpsquid:S1144Q"1Remove the unused private method 'TypeConverter'.(„¼³Ğ8ä¶¿ıÅ1
+Rcsharpsquid:S1144B".Remove the unused private method 'TypeSuffix'.(±ÉøÔ8ÓªÓÿÅ1
 ccsharpsquid:S1075
 "?Refactor your code not to use hardcoded absolute paths or URIs.(¸¼Å”8óåÇüÅ1
-Gcsharpsquid:S125;"Remove this commented out code.(¹üÔúÿÿÿÿ8ù½ıÅ1
-Gcsharpsquid:S125B"Remove this commented out code.(éØ»Úûÿÿÿÿ8¸ò½ıÅ1
+Gcsharpsquid:S125;"Remove this commented out code.(·éÑÎùÿÿÿÿ8ù½ıÅ1
+Gcsharpsquid:S125D"Remove this commented out code.(éØ»Úûÿÿÿÿ8¸ò½ıÅ1
+Xcsharpsquid:S1135"4Complete the task associated to this 'TODO' comment.(ñõ£8à¼ÌıÅ1
 <csharpsquid:S4663%"Remove this empty comment(è»»_8ŸšşüÅ1
-<csharpsquid:S4663M"Remove this empty comment(è»»_8¸ò½ıÅ1
+<csharpsquid:S4663Q"Remove this empty comment(è»»_8×ÏÉıÅ1
