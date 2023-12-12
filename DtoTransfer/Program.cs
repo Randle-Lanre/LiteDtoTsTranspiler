@@ -1,15 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
+
 
 namespace DtoTransfer;
+
 //TODO: deal with allocations
 internal class Program
 {
-   static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\DtoTransfer\TestDtoOutput";
+    static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\DtoTransfer\TestDtoOutput";
 
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
 
@@ -22,7 +23,9 @@ internal class Program
 
             #region Create_Type_File
 
-            var ( _, typeFileCreated )= FileHelper(dto.Name);
+            var (_, typeFileCreated) = FileHelper(dto.Name);
+
+          await  TypePrefix(typeFileCreated, dto.Name);
 
             #endregion
 
@@ -35,13 +38,15 @@ internal class Program
                 if (!string.IsNullOrWhiteSpace(typeFileCreated))
                 {
                     //
-                    FileWriter(item.Name.ToString(), item.PropertyType.ToString(), typeFileCreated);
+                    await FileWriter(item.Name, item.PropertyType.ToString(), typeFileCreated);
                 }
 
                 #endregion
 
                 Console.WriteLine("PropertyName --> {0}, PropertyType --> {1}", item.Name, item.PropertyType);
             }
+
+            await TypeSuffix(typeFileCreated, dto.Name);
         }
     }
 
@@ -49,45 +54,75 @@ internal class Program
     static (bool, string) FileHelper(string dtoName)
     {
         if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
-        File.Create($"{basePath}\\{dtoName}.ts");
-        return (true, $"{basePath}\\{dtoName}.ts");
+        using (File.Create($"{basePath}\\{dtoName}.ts"))
 
+        // File.Create($"{basePath}\\{dtoName}.ts");
+        return (true, $"{basePath}\\{dtoName}.ts");
     }
 
-    static bool TypePrefix(string filePath, string dtoName)
+    static async Task<bool> TypePrefix(string filePath, string dtoName)
     {
         //export Interface dtoName {
-        var pfx = $"export Interface {dtoName}  "+"{"+ Environment.NewLine;
-        File.WriteAllText(filePath, pfx);
+        var pfx = $"export interface {dtoName}  " + "{" + Environment.NewLine;
+        try
+        {
+            await File.WriteAllTextAsync(filePath, pfx);
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e);
+        }
+
 
         return true;
     }
 
-    static bool TypeSuffix(string filePath, string dtoName)
+    static async Task<bool> TypeSuffix(string filePath, string dtoName)
     {
         // }
-        const string  sfx = "}";
-        File.AppendAllText(filePath, sfx);
+         var sfx = Environment.NewLine+ "}";
+        try
+        {
+            await File.AppendAllTextAsync(filePath, sfx);
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
         return true;
     }
 
-     static void FileWriter(string propName, string propType, string typeFile)
+    static async Task FileWriter(string propName, string propType, string typeFile)
     {
         if (!File.Exists(typeFile)) return;
+
+        var utility = new Utility();
         // id : number
-        var line = $"{propName} : {TypeConverter(propType)}";
-        File.AppendAllText(typeFile, line);
+        var line = $"{propName} : {utility.TypeConverter(propType)}, "+ Environment.NewLine;
+        try
+        {
+            await File.AppendAllTextAsync(typeFile, line);
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine("exception writing to file, {0}", e);
+        }
 
         //
-
     }
 
-    static string TypeConverter(string propType) => propType switch
+    class Utility
     {
-        "System.Int32" => "number",
-        "System.String" => "string",
-        "System.DateTime" => "Datetime",
-        "System.Double" => "float"
-    };
-
+     public string TypeConverter(string propType) => propType switch
+        {
+            "System.Int32" => "number",
+            "System.String" => "string",
+            "System.DateTime" => "Date",
+            "System.Double" => "number",
+            _ => ""
+        };
+    }
 }
+

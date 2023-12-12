@@ -1,12 +1,9 @@
 
-xcsharpsquid:S1118"OAdd a 'protected' constructor or the 'static' keyword to the class declaration.(İ­›Äÿÿÿÿÿ8ÈÈßüÅ1
-Rcsharpsquid:S1172B".Remove this unused method parameter 'dtoName'.(±ÉøÔ8ÄÏÒÿÅ1
-Rcsharpsquid:S11449".Remove the unused private method 'TypePrefix'.(©»Šü8»å¯ıÅ1
-Rcsharpsquid:S1144B".Remove the unused private method 'TypeSuffix'.(±ÉøÔ8ÓªÓÿÅ1
-ccsharpsquid:S1075
-"?Refactor your code not to use hardcoded absolute paths or URIs.(¸¼Å”8óåÇüÅ1
-Gcsharpsquid:S125;"Remove this commented out code.(·éÑÎùÿÿÿÿ8ù½ıÅ1
-Gcsharpsquid:S125D"Remove this commented out code.(éØ»Úûÿÿÿÿ8¸ò½ıÅ1
-Xcsharpsquid:S1135"4Complete the task associated to this 'TODO' comment.(ñõ£8à¼ÌıÅ1
-<csharpsquid:S4663%"Remove this empty comment(è»»_8ŸšşüÅ1
-<csharpsquid:S4663Q"Remove this empty comment(è»»_8×ÏÉıÅ1
+Rcsharpsquid:S1172P".Remove this unused method parameter 'dtoName'.(Òè‹Ì8õİÅ€Æ1
+ccsharpsquid:S1075"?Refactor your code not to use hardcoded absolute paths or URIs.(¸¼Å”8óåÇüÅ1
+Bcsharpsquid:S125;"Remove this commented out code.(ú›ÅÈ8¶»Ü€Æ1
+Gcsharpsquid:S125A"Remove this commented out code.(·éÑÎùÿÿÿÿ8ù½ıÅ1
+Gcsharpsquid:S125R"Remove this commented out code.(éØ»Úûÿÿÿÿ8¸ò½ıÅ1
+Xcsharpsquid:S1135"4Complete the task associated to this 'TODO' comment.(ñõ£8à¼ÌıÅ1
+<csharpsquid:S4663("Remove this empty comment(è»»_8ŸšşüÅ1
+<csharpsquid:S4663q"Remove this empty comment(è»»_8×ÏÉıÅ1
