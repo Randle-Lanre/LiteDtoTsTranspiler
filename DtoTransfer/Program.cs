@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace DtoTransfer;
 
@@ -15,7 +16,8 @@ internal class Program
         var assembly = Assembly.GetExecutingAssembly();
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();
 
-
+        // FileHelper();
+        
         foreach (var dto in dtoClasses)
         {
             Console.WriteLine("class Name ---> {0}",dto.Name);
@@ -30,6 +32,21 @@ internal class Program
 
         }
 
+    }
+
+
+    static void FileHelper(string dtoName)
+    {
+        var basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\DtoTransfer\TestDtoOutput";
+
+
+
+        if (!string.IsNullOrWhiteSpace(dtoName))
+        {
+            File.Create($"{basePath}\\{dtoName}.ts");
+        }
+        
+        
     }
     
 }

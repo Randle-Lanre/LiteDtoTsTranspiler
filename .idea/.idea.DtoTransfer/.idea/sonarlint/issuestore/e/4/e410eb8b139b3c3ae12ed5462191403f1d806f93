@@ -1,2 +1,5 @@
 
-xcsharpsquid:S1118"OAdd a 'protected' constructor or the 'static' keyword to the class declaration.(İ­›Äÿÿÿÿÿ8ä“ûÅ1
+xcsharpsquid:S1118"OAdd a 'protected' constructor or the 'static' keyword to the class declaration.(İ­›Äÿÿÿÿÿ8„É›üÅ1
+Wcsharpsquid:S1144&".Remove the unused private method 'FileHelper'.(è®Üûÿÿÿÿ8…É›üÅ1
+ccsharpsquid:S1075("?Refactor your code not to use hardcoded absolute paths or URIs.(½¿ú³8…É›üÅ1
+Bcsharpsquid:S125"Remove this commented out code.(ış¸Ö8…É›üÅ1
