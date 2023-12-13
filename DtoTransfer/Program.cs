@@ -25,13 +25,13 @@ internal class Program
 
             var (_, typeFileCreated) = FileHelper(dto.Name);
 
-          await  TypePrefix(typeFileCreated, dto.Name);
+            await TypePrefix(typeFileCreated, dto.Name);
 
             #endregion
 
-            var propties = dto.GetProperties().ToList();
+            var properties = dto.GetProperties().ToList();
 
-            foreach (PropertyInfo item in propties)
+            foreach (PropertyInfo item in properties)
             {
                 #region Write_To_Type_File
 
@@ -46,7 +46,7 @@ internal class Program
                 Console.WriteLine("PropertyName --> {0}, PropertyType --> {1}", item.Name, item.PropertyType);
             }
 
-            await TypeSuffix(typeFileCreated, dto.Name);
+            await TypeSuffix(typeFileCreated);
         }
     }
 
@@ -55,14 +55,11 @@ internal class Program
     {
         if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
         using (File.Create($"{basePath}\\{dtoName}.ts"))
-
-        // File.Create($"{basePath}\\{dtoName}.ts");
-        return (true, $"{basePath}\\{dtoName}.ts");
+            return (true, $"{basePath}\\{dtoName}.ts");
     }
 
-    static async Task<bool> TypePrefix(string filePath, string dtoName)
+    static async Task TypePrefix(string filePath, string dtoName)
     {
-        //export Interface dtoName {
         var pfx = $"export interface {dtoName}  " + "{" + Environment.NewLine;
         try
         {
@@ -72,15 +69,11 @@ internal class Program
         {
             Console.WriteLine(e);
         }
-
-
-        return true;
     }
 
-    static async Task<bool> TypeSuffix(string filePath, string dtoName)
+    static async Task TypeSuffix(string filePath)
     {
-        // }
-         var sfx = Environment.NewLine+ "}";
+        var sfx = Environment.NewLine + "}";
         try
         {
             await File.AppendAllTextAsync(filePath, sfx);
@@ -90,8 +83,6 @@ internal class Program
             Console.WriteLine(e);
             throw;
         }
-
-        return true;
     }
 
     static async Task FileWriter(string propName, string propType, string typeFile)
@@ -100,7 +91,7 @@ internal class Program
 
         var utility = new Utility();
         // id : number
-        var line = $"{propName} : {utility.TypeConverter(propType)}, "+ Environment.NewLine;
+        var line = $"{propName} : {utility.TypeConverter(propType)}, " + Environment.NewLine;
         try
         {
             await File.AppendAllTextAsync(typeFile, line);
@@ -110,12 +101,11 @@ internal class Program
             Console.WriteLine("exception writing to file, {0}", e);
         }
 
-        //
     }
 
     class Utility
     {
-     public string TypeConverter(string propType) => propType switch
+        public string TypeConverter(string propType) => propType switch
         {
             "System.Int32" => "number",
             "System.String" => "string",
@@ -127,4 +117,3 @@ internal class Program
         };
     }
 }
-
