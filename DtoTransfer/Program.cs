@@ -121,7 +121,9 @@ internal class Program
             "System.String" => "string",
             "System.DateTime" => "Date",
             "System.Double" => "number",
-            _ => ""
+            "System.Int64" => "bigint",
+            "System.Boolean" => "boolean",
+            _ => "any"
         };
     }
 }
