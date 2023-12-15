@@ -7,6 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <RootNamespace>LiteDtoTsTranspiler.Test</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +21,10 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LiteDtoTsTranspiler\LiteDtoTsTranspiler.csproj" />
     </ItemGroup>
 
 </Project>
