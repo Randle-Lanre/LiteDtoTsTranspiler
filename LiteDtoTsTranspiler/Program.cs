@@ -6,7 +6,7 @@ using System.Reflection;
 namespace LiteDtoTsTranspiler;
 
 //TODO: deal with allocations
-internal partial class Program
+internal  class Program
 {
     static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
 
