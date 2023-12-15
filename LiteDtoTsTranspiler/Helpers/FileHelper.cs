@@ -1,8 +1,6 @@
-﻿using LiteDtoTsTranspiler.Helpers;
+﻿namespace LiteDtoTsTranspiler.Helpers;
 
-namespace LiteDtoTsTranspiler.Helpers;
-
-public class FileHelper
+public static class FileHelper
 {
     const string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
 
@@ -46,8 +44,9 @@ public class FileHelper
         if (!File.Exists(typeFile)) return;
 
         var utility = new DtoTypeConverter();
-        // id : number
+        
         var line = $"{propName} : {utility.ConvertCsTypeToTsType(propType)}, " + Environment.NewLine;
+        
         try
         {
             await File.AppendAllTextAsync(typeFile, line);

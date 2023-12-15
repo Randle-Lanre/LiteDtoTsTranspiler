@@ -1,13 +1,12 @@
 ﻿using System.Reflection;
 using LiteDtoTsTranspiler.Helpers;
 
-
 namespace LiteDtoTsTranspiler;
 
 //TODO: deal with allocations
-internal partial class Program
+internal static class Program
 {
-    static async Task Main(string[] args)
+    private static async Task Main()
     {
         Console.WriteLine("Hello, World!");
 
@@ -28,7 +27,7 @@ internal partial class Program
 
             var properties = dto.GetProperties().ToList();
 
-            foreach (PropertyInfo item in properties)
+            foreach (var item in properties)
             {
                 #region Write_To_Type_File
 
