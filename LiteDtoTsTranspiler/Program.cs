@@ -3,12 +3,12 @@
 using System.Reflection;
 
 
-namespace DtoTransfer;
+namespace LiteDtoTsTranspiler;
 
 //TODO: deal with allocations
-internal class Program
+internal partial class Program
 {
-    static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\DtoTransfer\TestDtoOutput";
+    static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
 
     static async Task Main(string[] args)
     {
@@ -89,9 +89,9 @@ internal class Program
     {
         if (!File.Exists(typeFile)) return;
 
-        var utility = new Utility();
+        var utility = new DtoTypeConverter();
         // id : number
-        var line = $"{propName} : {utility.TypeConverter(propType)}, " + Environment.NewLine;
+        var line = $"{propName} : {utility.ConvertCsTypeToTsType(propType)}, " + Environment.NewLine;
         try
         {
             await File.AppendAllTextAsync(typeFile, line);
@@ -101,19 +101,5 @@ internal class Program
             Console.WriteLine("exception writing to file, {0}", e);
         }
 
-    }
-
-    class Utility
-    {
-        public string TypeConverter(string propType) => propType switch
-        {
-            "System.Int32" => "number",
-            "System.String" => "string",
-            "System.DateTime" => "Date",
-            "System.Double" => "number",
-            "System.Int64" => "bigint",
-            "System.Boolean" => "boolean",
-            _ => "any"
-        };
     }
 }

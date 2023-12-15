@@ -1,4 +1,4 @@
-﻿namespace DtoTransfer.Dtos;
+﻿namespace LiteDtoTsTranspiler.Dtos;
 
 public class AnimalDto
 {

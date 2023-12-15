@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtoTransfer", "DtoTransfer\DtoTransfer.csproj", "{8853C890-B7AD-42A2-9251-299513A317E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteDtoTsTranspiler", "LiteDtoTsTranspiler\LiteDtoTsTranspiler.csproj", "{8853C890-B7AD-42A2-9251-299513A317E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
