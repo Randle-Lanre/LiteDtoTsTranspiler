@@ -1,15 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Reflection;
+﻿using System.Reflection;
+using LiteDtoTsTranspiler.Helpers;
 
 
 namespace LiteDtoTsTranspiler;
 
 //TODO: deal with allocations
-internal  class Program
+internal partial class Program
 {
-    static string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
-
     static async Task Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
@@ -23,9 +20,9 @@ internal  class Program
 
             #region Create_Type_File
 
-            var (_, typeFileCreated) = FileHelper(dto.Name);
+            var (_, typeFileCreated) = FileHelper.FilePathHelper(dto.Name);
 
-            await TypePrefix(typeFileCreated, dto.Name);
+            await FileHelper.TypePrefix(typeFileCreated, dto.Name);
 
             #endregion
 
@@ -37,8 +34,7 @@ internal  class Program
 
                 if (!string.IsNullOrWhiteSpace(typeFileCreated))
                 {
-                    //
-                    await FileWriter(item.Name, item.PropertyType.ToString(), typeFileCreated);
+                    await FileHelper.FileWriter(item.Name, item.PropertyType.ToString(), typeFileCreated);
                 }
 
                 #endregion
@@ -46,60 +42,7 @@ internal  class Program
                 Console.WriteLine("PropertyName --> {0}, PropertyType --> {1}", item.Name, item.PropertyType);
             }
 
-            await TypeSuffix(typeFileCreated);
+            await FileHelper.TypeSuffix(typeFileCreated);
         }
-    }
-
-
-    static (bool, string) FileHelper(string dtoName)
-    {
-        if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
-        using (File.Create($"{basePath}\\{dtoName}.ts"))
-            return (true, $"{basePath}\\{dtoName}.ts");
-    }
-
-    static async Task TypePrefix(string filePath, string dtoName)
-    {
-        var pfx = $"export interface {dtoName}  " + "{" + Environment.NewLine;
-        try
-        {
-            await File.WriteAllTextAsync(filePath, pfx);
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine(e);
-        }
-    }
-
-    static async Task TypeSuffix(string filePath)
-    {
-        var sfx = Environment.NewLine + "}";
-        try
-        {
-            await File.AppendAllTextAsync(filePath, sfx);
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-
-    static async Task FileWriter(string propName, string propType, string typeFile)
-    {
-        if (!File.Exists(typeFile)) return;
-
-        var utility = new DtoTypeConverter();
-        // id : number
-        var line = $"{propName} : {utility.ConvertCsTypeToTsType(propType)}, " + Environment.NewLine;
-        try
-        {
-            await File.AppendAllTextAsync(typeFile, line);
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("exception writing to file, {0}", e);
-        }
-
     }
 }

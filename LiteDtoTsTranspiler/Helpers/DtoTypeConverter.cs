@@ -1,4 +1,4 @@
-﻿namespace LiteDtoTsTranspiler;
+﻿namespace LiteDtoTsTranspiler.Helpers;
 
 public class DtoTypeConverter
 {
