@@ -4,11 +4,37 @@ using LiteDtoTsTranspiler.Helpers;
 namespace LiteDtoTsTranspiler;
 
 //TODO: deal with allocations
+
+/**
+ * when program is run in a directory
+ * enumerate all files inside to find the required dll
+ * then load that and find the DTOs
+ */
 internal static class Program
 {
     private static async Task Main()
     {
         Console.WriteLine("Hello, World!");
+
+        #region test_dll_in_directory
+
+        // Get the current directory
+        string currentDir = Directory.GetCurrentDirectory();
+        
+        // Call the recursive method to search for the dll
+        string dllPath = DllHelper.FindDll(currentDir, "LiteDtoTsTranspiler.dll");
+        
+        // Check if the dll was found and print the result
+        if (dllPath != null)
+        {
+            Console.WriteLine("The dll was found at: " + dllPath);
+        }
+        else
+        {
+            Console.WriteLine("The dll was not found.");
+        }
+
+        #endregion
 
         var assembly = Assembly.GetExecutingAssembly();
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();
