@@ -12,7 +12,17 @@ namespace LiteDtoTsTranspiler;
  */
 internal static class Program
 {
-    private static async Task Main()
+
+
+     static void  Main(string[] args)
+    {
+
+
+        Console.WriteLine("parser, hello world");
+    }
+
+
+    static async Task TranspileDto()
     {
         Console.WriteLine("Hello, World!");
 
