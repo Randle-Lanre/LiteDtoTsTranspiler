@@ -20,10 +20,10 @@ internal static class Program
 
         // Get the current directory
         string currentDir = Directory.GetCurrentDirectory();
-        
+
         // Call the recursive method to search for the dll
         string dllPath = DllHelper.FindDll(currentDir, "LiteDtoTsTranspiler.dll");
-        
+
         // Check if the dll was found and print the result
         if (dllPath != null)
         {
@@ -32,11 +32,13 @@ internal static class Program
         else
         {
             Console.WriteLine("The dll was not found.");
+            return;
         }
 
         #endregion
 
-        var assembly = Assembly.GetExecutingAssembly();
+        // var assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.Load(dllPath);
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();
 
         foreach (var dto in dtoClasses)
