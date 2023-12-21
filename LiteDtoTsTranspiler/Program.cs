@@ -1,63 +1,12 @@
 ﻿using System.Reflection;
+using LiteDtoTsTranspiler.cli;
 using LiteDtoTsTranspiler.Helpers;
 using Spectre.Console.Cli;
 
 namespace LiteDtoTsTranspiler;
 
-using Spectre.Console;
-
-//TODO: deal with allocations
-
-/**
- * when program is run in a directory
- * enumerate all files inside to find the required dll
- * then load that and find the DTOs
- */
 internal static class Program
 {
-    #region Settings
-    public class AddSettings : CommandSettings
-    {
-        [CommandArgument(0, "[PROJECT]")] 
-        public string Project { get; set; }
-    }
-
-    public class AddPackageSettings  : AddSettings
-    {
-        [CommandArgument(0, "<PACKAGE_NAME>")]
-        public string PackageName { get; set; }
-        
-        [CommandOption("-v|--version <VERSION>")]
-        public string Version { get; set; }
-    }
-    
-    public class AddReferenceSettings : AddSettings
-    {
-        [CommandArgument(0, "<PROJECT_REFERENCE>")]
-        public string ProjectReference { get; set; }
-    }
-    #endregion
-    
-    #region Commands
-
-    public class AddPackageCommand : Command<AddPackageSettings>
-    {
-        public override int Execute(CommandContext context, AddPackageSettings settings)
-        {
-            // Omitted
-            return 0;
-        }
-    }
-
-    public class AddReferenceCommand : Command<AddReferenceSettings>
-    {
-        public override int Execute(CommandContext context, AddReferenceSettings settings)
-        {
-            // Omitted
-            return 0;
-        }
-    }
-    #endregion
 
     static int Main(string[] args)
     {
@@ -66,16 +15,13 @@ internal static class Program
         app.Configure(
             config =>
             {
-                // config.AddBranch<AddSettings>("add", add =>
-                // {
-                //     add.AddCommand<AddPackageCommand>("package");
-                //     add.AddCommand<AddReferenceCommand>("reference");
-                // });
-                config.AddCommand<AddReferenceCommand>("reference");
-                config.AddCommand<AddPackageCommand>("package")
-                    .IsHidden().WithAlias("packager")
-                    .WithDescription("gets the package for you")
-                    .WithExample("size", "c:\\windows", "--pattern", "*.dll");
+                config.AddBranch<CliSettings.AddSettings>("generate", add =>
+                {
+                    add.AddCommand<CliCommands.AddPackageCommand>("dto")
+                        .WithDescription("Converts all Dto class to TS interfaces, Dto classes must end with Dto e.g AnimalDto.cs")
+                        .WithExample("generate", "dto", "appclication_name", "c:\\users\\exampleuser\\outputfolder");
+                });
+               
             }
         );
         return app.Run(args);
@@ -84,7 +30,7 @@ internal static class Program
 
     static async Task TranspileDto()
     {
-        Console.WriteLine("Hello, World!");
+      
 
         #region test_dll_in_directory
 
@@ -92,10 +38,10 @@ internal static class Program
         string currentDir = Directory.GetCurrentDirectory();
 
         // Call the recursive method to search for the dll
-        string dllPath = DllHelper.FindDll(currentDir, "LiteDtoTsTranspiler.dll");
+        var (found, dllPath) = DllHelper.FindDll(currentDir, "LiteDtoTsTranspiler.dll");
 
         // Check if the dll was found and print the result
-        if (dllPath != null)
+        if (found)
         {
             Console.WriteLine("The dll was found at: " + dllPath);
         }
@@ -107,6 +53,11 @@ internal static class Program
 
         #endregion
 
+        await Transpile(dllPath);
+    }
+
+    private static async Task Transpile(string dllPath)
+    {
         // var assembly = Assembly.GetExecutingAssembly();
         var assembly = Assembly.Load(dllPath);
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();

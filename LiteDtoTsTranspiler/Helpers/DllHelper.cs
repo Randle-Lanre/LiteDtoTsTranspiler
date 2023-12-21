@@ -2,7 +2,7 @@
 
 public static class DllHelper
 {
-   internal static string FindDll(string dir, string dllName)
+   internal static (bool, string )FindDll(string dir, string dllName)
     {
         string[] files = Directory.GetFiles(dir);
 
@@ -12,7 +12,7 @@ public static class DllHelper
             if (Path.GetFileName(file) == dllName)
             {
                 // Return the full path of the dll
-                return file;
+                return (true, file);
             }
         }
 
@@ -20,14 +20,14 @@ public static class DllHelper
 
         foreach (string subdir in subdirs)
         {
-            string dllPath = FindDll(subdir, dllName);
+           var  ( found,  location)  = FindDll(subdir, dllName);
 
-            if (dllPath != null)
+            if (location != null)
             {
-                return dllPath;
+                return (found, location);
             }
         }
 
-        return null;
+        return (false, null)!;
     }
 }
