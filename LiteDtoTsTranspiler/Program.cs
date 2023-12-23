@@ -18,7 +18,8 @@ internal static class Program
                 config.AddBranch<CliSettings.AddSettings>("generate", add =>
                 {
                     add.AddCommand<CliCommands.AddPackageCommand>("dto")
-                        .WithDescription("Converts all Dto class to TS interfaces, Dto classes must end with Dto e.g AnimalDto.cs")
+                        .WithDescription("Converts all Dto class to TS interfaces, Dto classes must" +
+                                         " end with Dto e.g AnimalDto.cs")
                         .WithExample("generate", "dto", "appclication_name", "c:\\users\\exampleuser\\outputfolder");
                 });
                
