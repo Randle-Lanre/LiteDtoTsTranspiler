@@ -12,10 +12,10 @@ public static class CliSettings
     public class OutputFolderSettings : AddSettings
     {
         [CommandArgument(0, "<ApplicationName>")]
-        public string ApplicationName { get; set; }
+        public required string ApplicationName { get; set; }
 
         [CommandArgument(1, "<OUTPUT_FILE_PATH>")]
-        public string PackageName { get; set; }
+        public required string TranspileOutputLocation { get; set; }
 
         [CommandOption("-v|--version <VERSION>")]
         public string Version { get; set; }

@@ -16,19 +16,19 @@ public static class CliCommands
         public override int Execute(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
             
-            AnsiConsole.MarkupLine($"Executed the Command, [green]{settings.PackageName}[/]");
+            AnsiConsole.MarkupLine($"Executed the Command, [green]{settings.TranspileOutputLocation}[/]");
             return 0;
         }
 
         public override ValidationResult Validate(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
             var path =  AssemblyPath();
-            if (string.IsNullOrWhiteSpace(path))  return ValidationResult.Error("Cannot find path");
+            if (string.IsNullOrWhiteSpace(path))  return ValidationResult.Error("Cannot find path"); //review
             
             //
-            if (settings.PackageName != "cow")
+            if (settings.TranspileOutputLocation != "cow")
             {
-                return ValidationResult.Error($"you requested for -{settings.PackageName} - instead of cow");
+                return ValidationResult.Error($"you requested for -{settings.TranspileOutputLocation} - instead of cow");
             }
 
             return base.Validate(context, settings);

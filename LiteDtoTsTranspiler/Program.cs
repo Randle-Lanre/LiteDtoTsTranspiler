@@ -1,13 +1,10 @@
-﻿using System.Reflection;
-using LiteDtoTsTranspiler.cli;
-using LiteDtoTsTranspiler.Helpers;
+﻿using LiteDtoTsTranspiler.cli;
 using Spectre.Console.Cli;
 
 namespace LiteDtoTsTranspiler;
 
 internal static class Program
 {
-
     static int Main(string[] args)
     {
         var app = new CommandApp();
