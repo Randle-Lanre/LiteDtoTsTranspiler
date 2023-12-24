@@ -7,12 +7,13 @@ namespace LiteDtoTsTranspiler.cli;
 
 public static class CliCommands
 {
-    public class AddPackageCommand : Command<CliSettings.OutputFolderSettings>
+    public class AddPackageCommand : AsyncCommand<CliSettings.OutputFolderSettings>
     {
-     
-        public override int Execute(CommandContext context, CliSettings.OutputFolderSettings settings)
+        public override async Task<int> ExecuteAsync(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
-            Task.WaitAny(Transpile(FindAssembly(settings.ApplicationName), settings.TranspileOutputLocation)); //finicky
+            var ass = FindAssembly(settings.ApplicationName);
+            await Transpile(ass, settings.TranspileOutputLocation);
+
 
             AnsiConsole.MarkupLine($"Executed the Command, [green]{settings.TranspileOutputLocation}[/]");
             return 0;
@@ -26,10 +27,10 @@ public static class CliCommands
                 return ValidationResult.Error("Directory Path does not exist");
 
             var ass = FindAssembly(settings.ApplicationName);
-            if (string.IsNullOrWhiteSpace(ass))
-                return ValidationResult.Error("cannot locate assembly in this directory" +
-                                              " sure you have built the program");
-   
+            // if (string.IsNullOrWhiteSpace(ass))
+            //     return ValidationResult.Error("cannot locate assembly in this directory" +
+            //                                   $" sure you have built the program -> {ass}");
+
             return base.Validate(context, settings);
         }
     }
@@ -52,11 +53,12 @@ public static class CliCommands
         }
         else
         {
-            Console.WriteLine("The dll was not found.");
+            Console.WriteLine($"The dll was not found. current directory {currentDir}, {assemblyName}.dll");
             return "";
         }
 
         #endregion
+
         return dllPath;
     }
 
