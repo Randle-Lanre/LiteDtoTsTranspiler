@@ -4,10 +4,10 @@ public static class DllHelper
 {
    internal static (bool, string )FindDll(string dir, string dllName)
     {
-        string[] files = Directory.GetFiles(dir);
+        var files = Directory.GetFiles(dir);
 
         // check if the dll is among them
-        foreach (string file in files)
+        foreach (var file in files)
         {
             if (Path.GetFileName(file) == dllName)
             {
@@ -18,7 +18,7 @@ public static class DllHelper
 
         var subdirs = Directory.GetDirectories(dir);
 
-        foreach (string subdir in subdirs)
+        foreach (var subdir in subdirs)
         {
            var  ( found,  location)  = FindDll(subdir, dllName);
 

@@ -4,11 +4,11 @@ public static class FileHelper
 {
     const string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
 
-    public static (bool, string) FilePathHelper(string dtoName)
+    public static (bool, string) FilePathHelper(string dtoName, string outputLocation)
     {
         if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
-        using (File.Create($"{basePath}\\{dtoName}.ts"))
-            return (true, $"{basePath}\\{dtoName}.ts");
+        using (File.Create($"{outputLocation}\\{dtoName}.ts"))
+            return (true, $"{outputLocation}\\{dtoName}.ts");
     }
 
 

@@ -15,39 +15,38 @@ public static class CliCommands
 
         public override int Execute(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
-            
+            Task.WaitAny(Transpile(FindAssembly(settings.ApplicationName), settings.TranspileOutputLocation)); //finicky
+
             AnsiConsole.MarkupLine($"Executed the Command, [green]{settings.TranspileOutputLocation}[/]");
             return 0;
         }
 
         public override ValidationResult Validate(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
-            var path =  AssemblyPath();
-            if (string.IsNullOrWhiteSpace(path))  return ValidationResult.Error("Cannot find path"); //review
-            
-            //
-            if (settings.TranspileOutputLocation != "cow")
-            {
-                return ValidationResult.Error($"you requested for -{settings.TranspileOutputLocation} - instead of cow");
-            }
+            if (string.IsNullOrWhiteSpace(settings.TranspileOutputLocation))
+                return ValidationResult.Error("Empty Path entered");
+            if (!Directory.Exists(settings.TranspileOutputLocation))
+                return ValidationResult.Error("Directory Path does not exist");
 
+            var ass = FindAssembly(settings.ApplicationName);
+            if (string.IsNullOrWhiteSpace(ass))
+                return ValidationResult.Error("cannot locate assembly in this directory" +
+                                              " sure you have built the program");
+   
             return base.Validate(context, settings);
         }
-        
     }
-    
-    //
-    static string AssemblyPath()
-    {
-      
 
+    //
+    static string FindAssembly(string assemblyName)
+    {
         #region test_dll_in_directory
 
         // Get the current directory
         var currentDir = Directory.GetCurrentDirectory();
 
         // Call the recursive method to search for the dll
-        var (found, dllPath) = DllHelper.FindDll(currentDir, "LiteDtoTsTranspiler.dll");
+        var (found, dllPath) = DllHelper.FindDll(currentDir, $"{assemblyName}.dll");
 
         // Check if the dll was found and print the result
         if (found)
@@ -61,12 +60,10 @@ public static class CliCommands
         }
 
         #endregion
-
-        // await Transpile(dllPath);
         return dllPath;
     }
 
-    private static async Task Transpile(string dllPath)
+    private static async Task Transpile(string dllPath, string outputLocation)
     {
         var assembly = Assembly.Load(dllPath);
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();
@@ -77,7 +74,7 @@ public static class CliCommands
 
             #region Create_Type_File
 
-            var (_, typeFileCreated) = FileHelper.FilePathHelper(dto.Name);
+            var (_, typeFileCreated) = FileHelper.FilePathHelper(dto.Name, outputLocation);
 
             await FileHelper.TypePrefix(typeFileCreated, dto.Name);
 

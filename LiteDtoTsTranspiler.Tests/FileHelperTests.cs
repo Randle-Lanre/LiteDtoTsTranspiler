@@ -11,7 +11,7 @@ public class FileHelperTests
         var dtoName = "TestDto";
 
         // Act
-        var (created, filePath) = FileHelper.FilePathHelper(dtoName);
+        var (created, filePath) = FileHelper.FilePathHelper(dtoName, "");
 
         // Assert
         Assert.True(created);
