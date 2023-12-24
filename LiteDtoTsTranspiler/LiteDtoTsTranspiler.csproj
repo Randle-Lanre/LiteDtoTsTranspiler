@@ -6,6 +6,10 @@
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
 
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>LiteDtoTsTranspiler</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+
     </PropertyGroup>
 
     <ItemGroup>

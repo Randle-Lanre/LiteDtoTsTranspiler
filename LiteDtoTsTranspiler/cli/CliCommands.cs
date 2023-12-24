@@ -9,10 +9,7 @@ public static class CliCommands
 {
     public class AddPackageCommand : Command<CliSettings.OutputFolderSettings>
     {
-        //TODO: check output folder exist 
-        //TODO: check if DLL can be found, otherwise warm user
-        //TODO: check check if DTOs can be found otherwise prompt user
-
+     
         public override int Execute(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
             Task.WaitAny(Transpile(FindAssembly(settings.ApplicationName), settings.TranspileOutputLocation)); //finicky
