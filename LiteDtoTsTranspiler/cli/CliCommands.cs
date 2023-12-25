@@ -26,7 +26,7 @@ public static class CliCommands
             if (!Directory.Exists(settings.TranspileOutputLocation))
                 return ValidationResult.Error("Directory Path does not exist");
 
-            var ass = FindAssembly(settings.ApplicationName);
+            // var ass = FindAssembly(settings.ApplicationName);
             // if (string.IsNullOrWhiteSpace(ass))
             //     return ValidationResult.Error("cannot locate assembly in this directory" +
             //                                   $" sure you have built the program -> {ass}");
@@ -64,7 +64,7 @@ public static class CliCommands
 
     private static async Task Transpile(string dllPath, string outputLocation)
     {
-        var assembly = Assembly.Load(dllPath);
+        var assembly = Assembly.LoadFrom(dllPath);
         var dtoClasses = assembly.GetTypes().Where(type => type.Name.EndsWith("Dto")).ToList();
 
         foreach (var dto in dtoClasses)
