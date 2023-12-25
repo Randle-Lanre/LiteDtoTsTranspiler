@@ -15,7 +15,8 @@ public static class CliCommands
             await Transpile(ass, settings.TranspileOutputLocation);
 
 
-            AnsiConsole.MarkupLine($"Executed the Command, [green]{settings.TranspileOutputLocation}[/]");
+            AnsiConsole.MarkupLine(
+                $"Executed the Command successfully, generated interface located at -> [green]{settings.TranspileOutputLocation}[/]");
             return 0;
         }
 
@@ -25,11 +26,6 @@ public static class CliCommands
                 return ValidationResult.Error("Empty Path entered");
             if (!Directory.Exists(settings.TranspileOutputLocation))
                 return ValidationResult.Error("Directory Path does not exist");
-
-            // var ass = FindAssembly(settings.ApplicationName);
-            // if (string.IsNullOrWhiteSpace(ass))
-            //     return ValidationResult.Error("cannot locate assembly in this directory" +
-            //                                   $" sure you have built the program -> {ass}");
 
             return base.Validate(context, settings);
         }
@@ -49,11 +45,22 @@ public static class CliCommands
         // Check if the dll was found and print the result
         if (found)
         {
-            Console.WriteLine("The dll was found at: " + dllPath);
+            AnsiConsole.MarkupLine($" The dll was found at: [green]{dllPath}[/]");
+            var rule = new Rule
+            {
+                Style = Style.Parse("blue")
+            };
+            AnsiConsole.Write(rule);
         }
         else
         {
-            Console.WriteLine($"The dll was not found. current directory {currentDir}, {assemblyName}.dll");
+            AnsiConsole.MarkupLine(
+                $" The dll was not found. current directory [red] {currentDir}, [red] {assemblyName}.dll [/]");
+            var rule = new Rule
+            {
+                Style = Style.Parse("blue")
+            };
+            AnsiConsole.Write(rule);
             return "";
         }
 
@@ -69,7 +76,7 @@ public static class CliCommands
 
         foreach (var dto in dtoClasses)
         {
-            Console.WriteLine("class Name ---> {0}", dto.Name); //pass to File create
+            AnsiConsole.MarkupLine($"DTO name--> [bold yellow on blue]{dto.Name}[/]"); //pass to File create
 
             #region Create_Type_File
 
@@ -92,7 +99,10 @@ public static class CliCommands
 
                 #endregion
 
+#if DEBUG
                 Console.WriteLine("PropertyName --> {0}, PropertyType --> {1}", item.Name, item.PropertyType);
+
+#endif
             }
 
             await FileHelper.TypeSuffix(typeFileCreated);

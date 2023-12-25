@@ -2,7 +2,6 @@
 
 public static class FileHelper
 {
-    const string basePath = @"C:\Users\Kehinde\RiderProjects\DtoTransfer\LiteDtoTsTranspiler\TestDtoOutput";
 
     public static (bool, string) FilePathHelper(string dtoName, string outputLocation)
     {
