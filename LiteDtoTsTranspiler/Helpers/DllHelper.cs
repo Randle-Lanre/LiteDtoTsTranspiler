@@ -22,7 +22,7 @@ public static class DllHelper
         {
            var  ( found,  location)  = FindDll(subdir, dllName);
 
-            if (location != null)
+            if (!string.IsNullOrWhiteSpace(location))
             {
                 return (found, location);
             }
