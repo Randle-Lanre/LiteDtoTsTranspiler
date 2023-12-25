@@ -36,13 +36,11 @@ public static class CliCommands
     {
         #region test_dll_in_directory
 
-        // Get the current directory
         var currentDir = Directory.GetCurrentDirectory();
 
         // Call the recursive method to search for the dll
         var (found, dllPath) = DllHelper.FindDll(currentDir, $"{assemblyName}.dll");
 
-        // Check if the dll was found and print the result
         if (found)
         {
             AnsiConsole.MarkupLine($" The dll was found at: [green]{dllPath}[/]");

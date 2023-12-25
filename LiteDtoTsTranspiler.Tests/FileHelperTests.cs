@@ -4,20 +4,35 @@ namespace LiteDtoTsTranspiler.Test;
 
 public class FileHelperTests
 {
-    [Fact]
-    public void FilePathHelper_ShouldCreateFile()
+    [Theory]
+    [InlineData("TestDto", true)]
+    [InlineData("", false)]
+    [InlineData(null, false)]
+    [InlineData("Invalid*Name", false)]
+    public void FilePathHelper_ShouldCreateFile(string dtoName, bool expectedCreated)
     {
         // Arrange
-        var dtoName = "TestDto";
+        var outputLocation = Path.GetTempPath();
+        var filePath = Path.Combine(outputLocation, $"{dtoName}.ts");
 
         // Act
-        var (created, filePath) = FileHelper.FilePathHelper(dtoName, "");
+        var (created, actualFilePath) = FileHelper.FilePathHelper(dtoName, outputLocation);
 
         // Assert
-        Assert.True(created);
-        Assert.True(File.Exists(filePath));
-
-        // Cleanup
-        File.Delete(filePath);
+        Assert.Equal(expectedCreated, created);
+        if (created)
+        {
+            using (var file = File.Open(filePath, FileMode.Open))
+            {
+                Assert.True(File.Exists(filePath));
+                Assert.Equal(filePath, actualFilePath);
+            }
+        }
+        else
+        {
+            Assert.False(File.Exists(filePath));
+            Assert.Null(actualFilePath);
+        }
     }
+
 }

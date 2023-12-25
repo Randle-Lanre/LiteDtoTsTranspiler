@@ -2,12 +2,19 @@
 
 public static class FileHelper
 {
-
     public static (bool, string) FilePathHelper(string dtoName, string outputLocation)
     {
         if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
-        using (File.Create($"{outputLocation}\\{dtoName}.ts"))
-            return (true, $"{outputLocation}\\{dtoName}.ts");
+        try
+        {
+            using (File.Create($"{outputLocation}\\{dtoName}.ts"))
+                return (true, $"{outputLocation}\\{dtoName}.ts");
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e);
+            return (false, "");
+        }
     }
 
 
@@ -43,9 +50,9 @@ public static class FileHelper
         if (!File.Exists(typeFile)) return;
 
         var utility = new DtoTypeConverter();
-        
+
         var line = $"{propName} : {utility.ConvertCsTypeToTsType(propType)}, " + Environment.NewLine;
-        
+
         try
         {
             await File.AppendAllTextAsync(typeFile, line);
