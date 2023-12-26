@@ -2,7 +2,7 @@
 LiteDtoTsTranspiler is a simple and lightweight tool that converts C# data transfer objects (DTOs) to TypeScript interfaces. It can help you to keep your front-end and back-end models in sync, and avoid manual errors and inconsistencies.
 
 Installation and usage
-To install LiteDtoTsTranspiler, you need to have .NET Core 3.1 or higher installed on your machine. You can download the latest release of LiteDtoTsTranspiler from the releases page or clone this repository and build it yourself.
+To install LiteDtoTsTranspiler, you need to have .NET 7 or higher installed on your machine. You can download the latest release of LiteDtoTsTranspiler from the releases page or clone this repository and build it yourself.
 
 To use LiteDtoTsTranspiler, you need to provide the path to the folder that contains your C# DTOs and the path to the output folder where you want to save the generated TypeScript interfaces. For example, you can run the following command:
 
