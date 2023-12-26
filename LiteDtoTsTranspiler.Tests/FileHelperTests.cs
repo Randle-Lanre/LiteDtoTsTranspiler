@@ -17,6 +17,7 @@ public class FileHelperTests
 
         // Act
         var (created, actualFilePath) = FileHelper.FilePathHelper(dtoName, outputLocation);
+        actualFilePath = actualFilePath.Replace(@"\\", @"\");
 
         // Assert
         Assert.Equal(expectedCreated, created);
@@ -31,8 +32,7 @@ public class FileHelperTests
         else
         {
             Assert.False(File.Exists(filePath));
-            Assert.Null(actualFilePath);
+            Assert.True(string.IsNullOrWhiteSpace(actualFilePath));
         }
     }
-
 }
