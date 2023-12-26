@@ -70,7 +70,7 @@ LiteDtoTsTranspiler supports the following C# types and their TypeScript equival
 
 ## Roadmap
 
-Supports basic C# types and collections
+
 
     char	string
     ulong	number
