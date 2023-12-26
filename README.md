@@ -6,6 +6,14 @@ To install LiteDtoTsTranspiler, you need to have .NET 7 or higher installed on y
 
 To use LiteDtoTsTranspiler, you need to provide the path to the folder that contains your C# DTOs and the path to the output folder where you want to save the generated TypeScript interfaces. For example, you can run the following command:
 
+
+
+
+
+https://github.com/Randle-Lanre/LiteDtoTsTranspiler/assets/19264390/0feff782-53dc-4154-b9de-b2d5fc69587d
+
+
+
 ## installation 
 
 
