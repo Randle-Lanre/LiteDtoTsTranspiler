@@ -11,8 +11,8 @@ public static class CliCommands
     {
         public override async Task<int> ExecuteAsync(CommandContext context, CliSettings.OutputFolderSettings settings)
         {
-            var ass = FindAssembly(settings.ApplicationName);
-            await Transpile(ass, settings.TranspileOutputLocation);
+            var asm = FindAssembly(settings.ApplicationName);
+            await Transpile(asm, settings.TranspileOutputLocation);
 
 
             AnsiConsole.MarkupLine(

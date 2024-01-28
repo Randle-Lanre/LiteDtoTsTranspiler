@@ -7,8 +7,9 @@ public static class FileHelper
         if (string.IsNullOrWhiteSpace(dtoName)) return (false, "");
         try
         {
-            using (File.Create($"{outputLocation}\\{dtoName}.ts"))
-                return (true, $"{outputLocation}\\{dtoName}.ts");
+            // using (File.Create($"{outputLocation}\\{dtoName}.ts"))
+            using (File.Create(Path.Combine(outputLocation, dtoName)+ ".ts"))
+                return (true, $"{Path.Combine(outputLocation, dtoName)}.ts");
         }
         catch (IOException e)
         {

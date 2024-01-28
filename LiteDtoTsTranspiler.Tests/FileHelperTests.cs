@@ -17,7 +17,7 @@ public class FileHelperTests
 
         // Act
         var (created, actualFilePath) = FileHelper.FilePathHelper(dtoName, outputLocation);
-        actualFilePath = actualFilePath.Replace(@"\\", @"\");
+        // actualFilePath = actualFilePath.Replace(@"\\", @"\");
 
         // Assert
         Assert.Equal(expectedCreated, created);
