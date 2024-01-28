@@ -66,21 +66,18 @@ LiteDtoTsTranspiler supports the following C# types and their TypeScript equival
     long	number
     string	string
     DateTime	Date
-    
-
-## Roadmap
-
-
-
     char	string
     ulong	number
     short	number
     ushort	number
     object	any
     dynamic	any
-    DateTimeOffset	Date
     Guid	string
     Enum	string
+## Roadmap
+
+
+    DateTimeOffset	Date
     Nullable<T>	T | null
     List<T>	T[]
     Array<T>	T[]
